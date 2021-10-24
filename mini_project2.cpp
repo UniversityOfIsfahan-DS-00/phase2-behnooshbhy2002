@@ -138,6 +138,22 @@ class matrix
             }
          return false;
       }
+      void update(int col , int value)
+      {
+         if(value==0)
+            Delete(col);
+         else{
+          node *temp=head;
+            while(temp!=nullptr)
+            {
+                if(temp->get_column()==col-1){
+                    temp->set_data(value);
+                    return;
+                }
+                temp=temp->get_next();
+            }
+         }
+      }
 };
 void menu(matrix RowList[] , int row , int column)
 {
@@ -193,6 +209,16 @@ void menu(matrix RowList[] , int row , int column)
                      cout<<"\n--value "<<chosen_val<<" is found-- \n\n";
                   else
                      cout<<"\n--value "<<chosen_val<<" isn't found-- \n\n";
+                 break;
+
+                case 4:
+                 cout<<"Value : ";
+                 cin>>chosen_val;
+                 cout<<"Row : ";
+                 cin>>chosen_row;
+                 cout<<"Column : ";
+                 cin>>chosen_col;
+                 RowList[chosen_row-1].update(chosen_col , chosen_val);
                  break;
 
 
