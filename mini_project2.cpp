@@ -124,6 +124,20 @@ class matrix
           cout<<"\n---This element is empty please choose another element---\n\n";
           return true;
       }
+      bool search(int value)
+      {
+         node *temp=head;
+            while(temp!=nullptr)
+            {
+               if(temp->get_data()==value)
+               {
+                   return true;
+               }
+
+               temp=temp->get_next();
+            }
+         return false;
+      }
 };
 void menu(matrix RowList[] , int row , int column)
 {
@@ -162,6 +176,23 @@ void menu(matrix RowList[] , int row , int column)
                    cin>>chosen_col;
                   }while(RowList[chosen_row-1].check_Delete(chosen_col));
                  RowList[chosen_row-1].Delete(chosen_col);
+                 break;
+
+               case 3:
+                 cout<<"value : ";
+                 cin>>chosen_val;
+                  for(i=0; i<row; i++)
+                  {
+                     if(RowList[i].search(chosen_val)){
+                        search=true;
+                        break;
+                     }
+                     search=false;
+                  }
+                  if(search==true)
+                     cout<<"\n--value "<<chosen_val<<" is found-- \n\n";
+                  else
+                     cout<<"\n--value "<<chosen_val<<" isn't found-- \n\n";
                  break;
 
 
