@@ -49,7 +49,83 @@ class matrix
             }
          temp->set_next(newNode);
       }
+      void insert( int col, int value)
+      {
+         col=col-1;
+         node *newNode = new node(value , col);
+         node *per=head , *temp=head;
+            if(head==NULL)
+            {
+              head=newNode;
+              return;
+            }
+            if(temp->get_column()>col)
+            {
+                newNode->set_next(head);
+                head=newNode;
+                return;
+            }
+            while(temp->get_column()<col ){
+                per=temp;
+                temp=temp->get_next();
+                if(temp==nullptr)
+                    break;
+            }
+
+         newNode->set_next(temp);
+         per->set_next(newNode);
+
+      }
+      bool check_insert(int col)
+      {
+         node *temp=head;
+            while(temp!=nullptr)
+            {
+               if(temp->get_column()==col-1)
+               {
+                  cout<<"\n---This element isn't empty please choose another element---\n\n";
+                  return true;
+               }
+               temp=temp->get_next();
+
+            }
+         return false;
+      }
 };
+void menu(matrix RowList[] , int row , int column)
+{
+    bool flag=true , search;
+    int choice , chosen_val , chosen_row , chosen_col , i , type;
+         while(flag)
+         {
+         cout<<"------------------- MENU ------------------\n";
+         cout<<"1.Insert\n";
+         cout<<"2.Delete\n";
+         cout<<"3.Search\n";
+         cout<<"4.Update\n";
+         cout<<"5.Print\n";
+         cout<<"6.Exit\n";
+         cout<<"Choice : ";
+         cin>>choice;
+            switch(choice){
+
+               case 1:
+                 cout<<"Value : ";
+                 cin>>chosen_val;
+                  do{
+                    cout<<"Row : ";
+                    cin>>chosen_row;
+                    cout<<"Column : ";
+                    cin>>chosen_col;
+                  }while(RowList[chosen_row-1].check_insert(chosen_col));
+                 RowList[chosen_row-1].insert(chosen_col , chosen_val);
+                 break;
+
+            }
+
+       }
+
+}
 int main()
 {
 
@@ -85,5 +161,6 @@ int main()
             row++;
          }
         matrix.close();
-
+      //menu part
+      menu(RowList , row , column);
 }
