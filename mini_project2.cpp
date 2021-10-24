@@ -200,6 +200,53 @@ class matrix
               }
           }
       }
+      void save_files(matrix List[] , int row , int column)
+      {
+          ofstream M("M(7000,9000).csv");
+            if(M.is_open())
+            {
+                for(int i=0; i<row; i++){
+
+                  node *temp=List[i].head;
+
+                     for(int j=0; j<column; j++){
+
+                        if(temp!=nullptr){
+                          while(temp!=nullptr)
+                          {
+                            if(temp->get_column()==j)
+                            {
+                              M<<temp->get_data();
+                              temp=temp->get_next();
+                            }
+                            else
+                              M<<"0";
+                            break;
+
+                           }
+                        }
+                        else
+                          M<<"0";
+                        if(j!=column-1)
+                          M<<",";
+                     }
+                 M<<endl;
+              }
+           }
+      }
+      void destroy()
+      {
+          node *temp=head;
+          node *tmp;
+            while(temp!=nullptr)
+            {
+                tmp=temp;
+                delete tmp;
+                temp=temp->get_next();
+            }
+          this->head=nullptr;
+      }
+
 };
 void menu(matrix RowList[] , int row , int column)
 {
@@ -257,7 +304,7 @@ void menu(matrix RowList[] , int row , int column)
                      cout<<"\n--value "<<chosen_val<<" isn't found-- \n\n";
                  break;
 
-                case 4:
+              case 4:
                  cout<<"Value : ";
                  cin>>chosen_val;
                  cout<<"Row : ";
@@ -267,13 +314,19 @@ void menu(matrix RowList[] , int row , int column)
                  RowList[chosen_row-1].update(chosen_col , chosen_val);
                  break;
 
-                 case 5:
+              case 5:
                  cout<<"0.Display the matrix as a two-dimensional array\n";
                  cout<<"1.View the matrix compressed\n";
                  cin>>type;
                  RowList[1].print(RowList , row , column , type);
                  break;
 
+              case 6:
+                 RowList[1].save_files(RowList , row , column);
+                   for(i=0; i<row; i++)
+                     RowList[i].destroy();
+                 flag=false;
+                 break;
 
             }
 
