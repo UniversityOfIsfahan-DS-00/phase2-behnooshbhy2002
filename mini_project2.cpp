@@ -91,6 +91,39 @@ class matrix
             }
          return false;
       }
+      void Delete(int col)
+      {
+         node *temp=head;
+         node *per;
+
+         if(temp->get_column()==col-1){
+            head=head->get_next();
+            return;
+         }
+
+         while(temp->get_column()!= col-1)
+         {
+            per = temp;
+            temp = temp->get_next();
+         }
+         per->set_next( temp->get_next());
+         delete temp;
+
+      }
+      bool check_Delete(int col)
+      {
+         node *temp=head;
+            while(temp!=nullptr)
+            {
+               if(temp->get_column()==col-1)
+               {
+                  return false;
+               }
+               temp=temp->get_next();
+           }
+          cout<<"\n---This element is empty please choose another element---\n\n";
+          return true;
+      }
 };
 void menu(matrix RowList[] , int row , int column)
 {
@@ -120,6 +153,17 @@ void menu(matrix RowList[] , int row , int column)
                   }while(RowList[chosen_row-1].check_insert(chosen_col));
                  RowList[chosen_row-1].insert(chosen_col , chosen_val);
                  break;
+
+               case 2:
+                 do{
+                   cout<<"Row : ";
+                   cin>>chosen_row;
+                   cout<<"Column : ";
+                   cin>>chosen_col;
+                  }while(RowList[chosen_row-1].check_Delete(chosen_col));
+                 RowList[chosen_row-1].Delete(chosen_col);
+                 break;
+
 
             }
 
