@@ -154,6 +154,52 @@ class matrix
             }
          }
       }
+      void print(matrix List[] , int row , int column , bool type)
+      {
+
+          int i , j;
+          if(!type)
+          {
+              for(i=0; i<row; i++)
+              {
+                  node *temp=List[i].head;
+                  for(j=0; j<column; j++)
+                  {
+                      if(temp!=nullptr){
+                        while(temp!=nullptr)
+                        {
+                          if(temp->get_column()==j)
+                          {
+                             printf("%-5d" , temp->get_data());
+                             temp=temp->get_next();
+                          }
+                          else
+                             printf("%-5s" , "0");
+                          break;
+                        }
+                      }
+                      else
+                        printf("%-5s" , "0");
+
+                  }
+                 cout<<endl;
+             }
+          }
+          else
+          {
+             cout<<"Row\tColumn\tValue\n";
+             for(i=0; i<row; i++)
+              {
+                node *temp=List[i].head;
+                 while(temp!=nullptr)
+                 {
+                     cout<<i+1<<"\t"<<temp->get_column()+1<<"\t"<<temp->get_data()<<endl;
+                     temp=temp->get_next();
+                 }
+
+              }
+          }
+      }
 };
 void menu(matrix RowList[] , int row , int column)
 {
@@ -219,6 +265,13 @@ void menu(matrix RowList[] , int row , int column)
                  cout<<"Column : ";
                  cin>>chosen_col;
                  RowList[chosen_row-1].update(chosen_col , chosen_val);
+                 break;
+
+                 case 5:
+                 cout<<"0.Display the matrix as a two-dimensional array\n";
+                 cout<<"1.View the matrix compressed\n";
+                 cin>>type;
+                 RowList[1].print(RowList , row , column , type);
                  break;
 
 
