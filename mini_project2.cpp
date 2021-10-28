@@ -131,6 +131,7 @@ class matrix
             {
                if(temp->get_data()==value)
                {
+                   cout<<"\ncolumn : "<<temp->get_column()+1<<endl;
                    return true;
                }
 
@@ -166,8 +167,6 @@ class matrix
                   for(j=0; j<column; j++)
                   {
                       if(temp!=nullptr){
-                        while(temp!=nullptr)
-                        {
                           if(temp->get_column()==j)
                           {
                              printf("%-5d" , temp->get_data());
@@ -175,8 +174,6 @@ class matrix
                           }
                           else
                              printf("%-5s" , "0");
-                          break;
-                        }
                       }
                       else
                         printf("%-5s" , "0");
@@ -202,7 +199,7 @@ class matrix
       }
       void save_files(matrix List[] , int row , int column)
       {
-          ofstream M("M(7000,9000).csv");
+          ofstream M("M(10,5).csv");
             if(M.is_open())
             {
                 for(int i=0; i<row; i++){
@@ -212,8 +209,7 @@ class matrix
                      for(int j=0; j<column; j++){
 
                         if(temp!=nullptr){
-                          while(temp!=nullptr)
-                          {
+
                             if(temp->get_column()==j)
                             {
                               M<<temp->get_data();
@@ -221,9 +217,6 @@ class matrix
                             }
                             else
                               M<<"0";
-                            break;
-
-                           }
                         }
                         else
                           M<<"0";
@@ -298,8 +291,9 @@ void menu(matrix RowList[] , int row , int column)
                      }
                      search=false;
                   }
+
                   if(search==true)
-                     cout<<"\n--value "<<chosen_val<<" is found-- \n\n";
+                     cout<<"Row : "<<i+1<<endl<<"\n--value "<<chosen_val<<" is found-- \n\n";
                   else
                      cout<<"\n--value "<<chosen_val<<" isn't found-- \n\n";
                  break;
@@ -341,7 +335,7 @@ int main()
       int row=0 , column=0 , number ;
       //file part
       ifstream matrix;
-      matrix.open("M(300,200).csv");
+      matrix.open("M(10,5).csv");
          if(!matrix)
          {
             cout<<"error when opening file\n";
